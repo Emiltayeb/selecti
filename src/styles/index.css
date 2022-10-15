@@ -32,8 +32,19 @@ nav {
   margin-block-end: var(--size-3);
 
   & #description {
-    flex: 1;
     font-weight: 100;
+    border-bottom: 2px solid var(--green-6);
+    font-size: var(--font-size-2);
+    rotate: -3deg;
+  }
+
+  & #social-links {
+    margin-left: auto;
+    display: flex;
+    gap: var(--size-3);
+  }
+  & a:hover svg {
+    opacity: 0.8;
   }
 }
 

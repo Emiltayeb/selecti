@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/open-props" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" deffer src="./src/app.ts"></script>
+    <title>Text Selection</title>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h1>Selecti editor <span> &#128172;</span></h1>
+        <ol>
+          <li>Write some text</li>
+          <li>Select some words, and move the selection</li>
+        </ol>
+      </header>
+      <div id="editor-container">
+        <div id="editor" contenteditable="true" data-placeHolder="Write your text here"></div>
+        <button id="selecti-logo" data-visible="closed">&#128172;</button>
+      </div>
+    </main>
+  </body>
+</html>

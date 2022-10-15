@@ -1,0 +1,38 @@
+#editor-container {
+  position: relative;
+  height: 60vh;
+}
+#editor {
+  border: 1px solid rgba(172, 170, 170, 0.408);
+  padding: var(--size-fluid-3);
+  line-height: var(--font-lineheight-5);
+  &:before {
+    position: absolute;
+    content: attr(data-placeholder);
+    opacity: 0.5;
+    font-weight: bold;
+  }
+}
+
+#selecti-logo {
+  background-color: var(--teal-4);
+  color: white;
+  border-radius: 50%;
+  border-color: transparent;
+  pointer-events: none;
+  position: fixed;
+  --selecti-logo-size: 35px;
+  height: var(--selecti-logo-size);
+  width: var(--selecti-logo-size);
+  cursor: pointer;
+  user-select: none;
+
+  &[data-visible='open'] {
+    pointer-events: all;
+    opacity: 1;
+  }
+  &[data-visible='closed'] {
+    pointer-events: none;
+    opacity: 0;
+  }
+}

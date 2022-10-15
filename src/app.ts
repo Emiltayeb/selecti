@@ -6,7 +6,7 @@ import {
 } from './utils';
 import { domSelectors } from './utils/config';
 
-const handelInputChange = function (e: Event) {
+const handelInputChange = function () {
   if (getEditorContent().length === 0) {
     domSelectors.editor.setAttribute('data-placeholder', 'Insert your text here');
   } else {
@@ -14,7 +14,7 @@ const handelInputChange = function (e: Event) {
   }
 };
 
-const onSelectiClick = function (e: Event) {
+const onSelectiClick = function () {
   alert(`You Selected : ${getDocumentSelection()?.toString()}`);
 };
 

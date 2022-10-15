@@ -38,7 +38,7 @@ const appendToEditorSelection = function (selection: Selection | null) {
   setSelectiVisibility(VisibilityAttributes.OPEN);
 };
 
-export const onEditorWordSelect = function (e: Event) {
+export const onEditorWordSelect = function () {
   const selection = getDocumentSelection();
   // prevent selecting any other elemens other then our editor
   if (selection?.anchorNode?.parentElement?.closest(`#${EDITOR_ID}`) === null) {
@@ -51,9 +51,9 @@ export const onEditorWordSelect = function (e: Event) {
   }
 };
 
-export const debounceSelection = function (func, timeout = 50) {
-  let timer;
-  return (...args) => {
+export const debounceSelection = function (func: any, timeout = 50) {
+  let timer: number | undefined;
+  return (...args: any[]) => {
     if (
       domSelectors.editorTextSelectionButton.getAttribute('data-visible') ===
       VisibilityAttributes.OPEN
@@ -62,7 +62,7 @@ export const debounceSelection = function (func, timeout = 50) {
     }
     clearTimeout(timer);
     timer = setTimeout(() => {
-      func.apply(this, args);
+      func.apply(null, args);
     }, timeout);
   };
 };

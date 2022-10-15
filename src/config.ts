@@ -8,6 +8,8 @@ export const offsets = {
 export const domSelectors = {
   editor: document.getElementById(EDITOR_ID) as HTMLButtonElement,
   editorTextSelectionButton: document.getElementById(SELECTI_BUTTON_ID) as HTMLButtonElement,
+  placeHolderAttr: 'data-placeHolder',
+  visibilityAttr: 'data-visible',
 };
 
 export enum VisibilityAttributes {

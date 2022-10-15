@@ -1,28 +1,16 @@
 import {
-  debounceSelection,
-  getDocumentSelection,
-  getEditorContent,
-  onEditorWordSelect,
-} from './utils';
-import { domSelectors } from './utils/config';
-
-const handelInputChange = function () {
-  if (getEditorContent().length === 0) {
-    domSelectors.editor.setAttribute('data-placeholder', 'Insert your text here');
-  } else {
-    domSelectors.editor.removeAttribute('data-placeholder');
-  }
-};
-
-const onSelectiClick = function () {
-  alert(`You Selected : ${getDocumentSelection()?.toString()}`);
-};
+  handelInputChange,
+  handelSelectiButtonClick,
+  handelEditorWordSelection,
+} from './editor-events';
+import { debounceSelection } from './utils';
+import { domSelectors } from './config';
 
 const init = function () {
   domSelectors.editor.focus();
   domSelectors.editor.addEventListener('input', handelInputChange);
-  domSelectors.editorTextSelectionButton.addEventListener('click', onSelectiClick);
-  document.addEventListener('selectionchange', debounceSelection(onEditorWordSelect, 500));
+  domSelectors.editorTextSelectionButton.addEventListener('click', handelSelectiButtonClick);
+  document.addEventListener('selectionchange', debounceSelection(handelEditorWordSelection, 500));
 };
 
 init();

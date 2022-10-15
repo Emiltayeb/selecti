@@ -1,12 +1,7 @@
 import gsap from 'gsap';
-import {
-  domSelectors,
-  EDITOR_ID,
-  offsets,
-  SELECTI_BUTTON_ID,
-  VisibilityAttributes,
-} from './config';
+import { domSelectors, offsets, SELECTI_BUTTON_ID, VisibilityAttributes } from '../config';
 
+// In order to show the selection based if the user started the election from L->R or R->L
 //referenced from  @willlMa https://stackoverflow.com/a/23512678/11246548
 const getSelectionDirection = function (selection: Selection | null) {
   if (!selection || !selection.anchorNode || !selection.focusNode) return;
@@ -26,36 +21,33 @@ export const getDocumentSelection = function () {
 };
 
 export const setSelectiVisibility = function (visibility: VisibilityAttributes) {
-  domSelectors.editorTextSelectionButton.setAttribute('data-visible', visibility);
+  domSelectors.editorTextSelectionButton.setAttribute(domSelectors.visibilityAttr, visibility);
 };
-const appendToEditorSelection = function (selection: Selection | null) {
+
+const getCurrentCaretPositionBySelection = function (selection: Selection | null) {
   const clonedRange = selection?.getRangeAt(0)?.cloneRange();
   const isBackwardDirection = getSelectionDirection(selection);
   clonedRange?.collapse(isBackwardDirection);
   const { x, y } = clonedRange?.getBoundingClientRect()!;
-  const computedSide = (isBackwardDirection ? offsets.right : offsets.left) + x;
-  gsap.to(`#${SELECTI_BUTTON_ID}`, { left: computedSide, top: y + offsets.top });
+  return {
+    x: (isBackwardDirection ? offsets.right : offsets.left) + x,
+    y: y + offsets.top,
+  };
+};
+
+// Displaying the selecti logo on user caret position
+export const showSelectiOnCurrentCaretPosition = function (selection: Selection | null) {
+  const { x, y } = getCurrentCaretPositionBySelection(selection);
+  gsap.to(`#${SELECTI_BUTTON_ID}`, { left: x, top: y });
   setSelectiVisibility(VisibilityAttributes.OPEN);
 };
 
-export const onEditorWordSelect = function () {
-  const selection = getDocumentSelection();
-  // prevent selecting any other elemens other then our editor
-  if (selection?.anchorNode?.parentElement?.closest(`#${EDITOR_ID}`) === null) {
-    return;
-  }
-
-  const isTextSelected = !!selection?.toString()?.length;
-  if (isTextSelected) {
-    appendToEditorSelection(selection);
-  }
-};
-
+// Run extra logic to hide the selecti logo when selection change
 export const debounceSelection = function (func: any, timeout = 50) {
   let timer: number | undefined;
   return (...args: any[]) => {
     if (
-      domSelectors.editorTextSelectionButton.getAttribute('data-visible') ===
+      domSelectors.editorTextSelectionButton.getAttribute(domSelectors.visibilityAttr) ===
       VisibilityAttributes.OPEN
     ) {
       setSelectiVisibility(VisibilityAttributes.CLOSED);
